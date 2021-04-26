@@ -23,6 +23,11 @@ docker-compose --env-file=.env.dev up -d
 docker-compose --env-file=.env.prod up -d
 ```
 
+**실행 종료**
+```
+docker-compose down
+```
+
 ## 3. Article Revision History API
 **Path**
 ```
