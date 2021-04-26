@@ -1,6 +1,10 @@
 # Realworld Example App
 
 ## 1. 컨테이너 이미지 빌드
+
+> *구버전 Git 클라이언트가 설치된 환경에서는 docker build {git repository url} 실행 시 unable to prepare context 에러가 발생할 수 있습니다.*  
+> *해결방법은 Git 클라이언트를 최신 버전으로 업데이트 후 docker build를 실행하시면 됩니다.*  
+
 **Backend**
 ```
 docker build -t gwantaek/realworld-backend https://github.com/gwantaek/spring-boot-realworld-example-app.git
