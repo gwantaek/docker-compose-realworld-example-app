@@ -1,0 +1,51 @@
+version: '3.8'
+services:
+  frontend:
+    image: gwantaek/realworld-frontend:$FRONTEND_TAG
+    # build: https://github.com/gwantaek/react-redux-realworld-example-app.git
+    ports: 
+      - "80:80"
+    volumes: 
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    networks: 
+      - app_net
+    depends_on: 
+      - backend
+
+  backend:
+    environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+    image: gwantaek/realworld-backend:$BACKEND_TAG
+    # build: https://github.com/gwantaek/spring-boot-realworld-example-app.git
+    ports: 
+      - "8080:8080"
+    networks: 
+      - app_net
+      - db_net
+    depends_on: 
+      - db
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    ports: 
+      - "3306:3306"
+    networks: 
+      - db_net
+
+networks: 
+  app_net:
+    driver: bridge
+    # driver_opts: 
+    #   gateway: 172.40.0.1
+    #   subnet: 172.40.0.0/16
+
+  db_net:
+    driver: bridge
+    # driver_opts: 
+    #   gateway: 172.50.0.1
+    #   subnet: 172.50.0.0/16
